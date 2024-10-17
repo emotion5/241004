@@ -4,29 +4,30 @@ import React, { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 
-const Box = ({ width, height, depth }) => {
+const Box = ({ width, height, depth, color }) => {
   return (
     <mesh>
-      <boxGeometry args={[width, height, depth]} /> {/* 너비, 높이, 깊이 */}
-      <meshStandardMaterial color="blue" /> {/* 파란색 재질 */}
+      <boxGeometry args={[width, height, depth]} />
+      <meshStandardMaterial color={color} />
     </mesh>
   );
 };
 
-const Scene = ({ width, height, depth }) => {
+const Scene = ({ width, height, depth, color }) => {
   return (
     <>
-      <ambientLight /> {/* 주변광 */}
-      <pointLight position={[10, 10, 10]} /> {/* 포인트 광원 */}
-      <Box width={width} height={height} depth={depth} /> {/* 박스 컴포넌트 */}
+      <ambientLight />
+      <pointLight position={[10, 10, 10]} />
+      <Box width={width} height={height} depth={depth} color={color} />
     </>
   );
 };
 
 const App = () => {
-  const [width, setWidth] = useState(1);
-  const [height, setHeight] = useState(1);
-  const [depth, setDepth] = useState(1);
+  const [width, setWidth] = useState(2);
+  const [height, setHeight] = useState(2);
+  const [depth, setDepth] = useState(2);
+  const [color, setColor] = useState("white");
 
   return (
     <div>
@@ -58,10 +59,18 @@ const App = () => {
             step="0.1"
           />
         </label>
+        <label>
+          Color:
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+          />
+        </label>
       </div>
-      <Canvas style={{ width: '100%', height: '100vh' }}> {/* 전체 화면 높이 설정 */}
-        <Scene width={width} height={height} depth={depth} /> {/* 씬 컴포넌트 */}
-        <OrbitControls /> {/* 카메라 조작을 위한 컨트롤 */}
+      <Canvas style={{ width: '100%', height: '100vh' }}>
+        <Scene width={width} height={height} depth={depth} color={color} />
+        <OrbitControls />
       </Canvas>
     </div>
   );
