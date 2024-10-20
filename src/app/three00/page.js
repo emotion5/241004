@@ -59,7 +59,7 @@ const App = () => {
   const [width, setWidth] = useState(2);
   const [height, setHeight] = useState(2);
   const [depth, setDepth] = useState(2);
-  const [color, setColor] = useState("white");
+  const [color, setColor] = useState("#ffffff");
 
   useEffect(() => {
     const scene = new THREE.Scene();
